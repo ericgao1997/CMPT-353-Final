@@ -12,6 +12,7 @@ def main(data_file):
     tags = tags.applymap(lambda x: int(False == pd.isnull(x)))
     flat_d = pd.concat([bulk, tags], axis=1, sort=False)
     print(flat_d)
+    bulk.to_csv('out/to_rate.csv',index=False)
     flat_d.to_csv('out/tag_cleaned.csv',index=False)
     with open("out/tags.txt", mode='w',encoding='utf-8') as outfile:
         for col in tags.columns: 
