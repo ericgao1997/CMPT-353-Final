@@ -129,9 +129,9 @@ def main(input_file):
   
   # output
   print("Generating output...                 (6/6)")
-  types['amenity'].to_csv("data/amenity-types.csv", index=False)
-  data.to_csv("data/amenities-vancouver.csv", index=True)
-  tags.to_csv("data/tag-data.csv", index=True)
+  types['amenity'].to_csv("data/amenity-types.csv", header=False, index=False)
+  data.to_csv("data/amenities-vancouver.csv", header=True, index=True)
+  tags.to_csv("data/tag-data.csv", header=True, index=False)
 
 if __name__=='__main__':
   input_file = sys.argv[1]

@@ -22,7 +22,7 @@ def main(amenity_input, tag_input):
   ### DATA INSIGHT ###
 
   # takes 2 input pandas dataframes and creates summary graphs
-  # used to illustrate vcarious traits of the data
+  # used to illustrate various traits of the data
   # as well as effectiveness of our assumptions
   """
   )
