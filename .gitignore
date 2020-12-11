@@ -1,0 +1,12 @@
+# GitIgnore for my OS files, and anything I'm testing with
+.DS_Store
+lib/__pycache__
+
+# Expected outouts from pyplots and so on
+*.png
+
+# Output
+out.*
+
+# Professor provided code
+prof_code
