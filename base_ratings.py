@@ -17,7 +17,7 @@ def main(data_file, rating_file):
     data = data[data['risk']>1]
     print(data['amenity'],data['risk'])
     data = data.drop('tags', axis=1)
-    data.to_csv("basic_risk.csv",index=False)
+    data.to_csv("out/basic_risk.csv",index=False)
 
 if __name__=='__main__':
     data_file = sys.argv[1]
