@@ -20,7 +20,7 @@ def main(input_file):
   # https://wiki.openstreetmap.org/wiki/Tags
   # off the top of my head, I imagine tags we'd keep are something like:
 
-tagsample = data[s]
+  # tagsample = data[s]
   
   data.printSchema()
   # flat = 

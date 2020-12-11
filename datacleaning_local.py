@@ -56,13 +56,16 @@ def main(input_file):
   
   # bulkdata = pd.json_normalize(data)
   # bulk = pd.json_normalize(data.drop(['tags'], axis=1))
+  # print(data)
   bulk = data.drop(['tags'], axis=1)
   
   tags = pd.json_normalize(data['tags'])
   
-  print(tags['capacity'])
-  
-  # data.to_csv("out.csv", index=False)
+  data['tag_count'] = data.apply(lambda row: len(row['tags']), axis=1)
+  # print(data['tag_count'])
+  types = data.drop_duplicates(subset='amenity', keep="last")
+  print(types)
+  types['amenity'].to_csv("out.csv", index=False)
   
 if __name__=='__main__':
   input_file = sys.argv[1]
