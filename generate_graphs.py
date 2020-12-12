@@ -29,10 +29,26 @@ def risk_vs_tags(data):
     plt.clf()
     return
 
+def risk_vs_tags_boxplot(data):
+    groups = data.groupby('tag_count')
+    position = -1
+    plt.figure(figsize=(12,5))
+    for name, group in groups:
+        position += 1
+        # print(group)
+        plt.boxplot(group['risk'],positions=[position],widths=0.6)
+    plt.ylabel('risk (0-1)')
+    plt.xlabel('# of tags')
+    plt.title('Range of risks to # of tags.')
+    plt.savefig('figures/risk-tag-box.png')   
+    plt.show()
+    plt.clf()
+
 def main(data_file):
     data = pd.read_csv(data_file,header=0) 
     tag_untag(data)
     risk_vs_tags(data)
+    risk_vs_tags_boxplot(data)
 
 if __name__=='__main__':
     data_file = sys.argv[1]
