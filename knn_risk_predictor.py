@@ -17,10 +17,10 @@ def risk_calc(row):
 def irl_risk(model):
     irl_cases = pd.read_csv("data/confirmed_cases.csv") 
     irl_cases['risk'] = model.predict(irl_cases)
-    irl_cases.to_csv("out/irl_risk.csv")
+    irl_cases.to_csv("out/irl_risk.csv",index=False)
 
 def main(data_file):
-    data = pd.read_csv(data_file) 
+    data = pd.read_csv(data_file,index_col=0) 
     data['risk'] = data.apply(lambda row: risk_calc(row),axis=1)
     data['risk'] = data.apply(lambda x: x['risk']/data['risk'].max(), axis=1)
     print (data)
@@ -49,11 +49,10 @@ def main(data_file):
     wider_neigh.fit(known_2[['lat','lon']],known_2['risk'])
     new_targets['risk'] = wider_neigh.predict(new_targets[['lat','lon']]) 
     overall_risks = pd.concat([known_2,new_targets])
-
     overall_risks.to_csv('out/smart_risks.csv',index = False)
 
     irl_risk(wider_neigh)
-    # print (overall_risks)
+    print (overall_risks)
     # targets = data[ (data['food']==False) | (data['medical']==False) | (data['gathering']==False) | (data['transport']==False) | (data['notable']==False)  ]
     # targets = targets[targets['tag_count']>0]
     
