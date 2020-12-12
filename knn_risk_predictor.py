@@ -59,7 +59,8 @@ def main(data_file):
     # targets = targets[targets['tag_count']>0]
 
     # Validate our smartest model
-    print(stats.ttest_ind(overall_risks['risk'],irl_risks))
+    print(stats.ttest_ind(overall_risks['risk']**0.5,irl_risks**0.5))
+    print(stats.mannwhitneyu(overall_risks['risk'],irl_risks))
     
 if __name__=='__main__':
     data_file = sys.argv[1]
