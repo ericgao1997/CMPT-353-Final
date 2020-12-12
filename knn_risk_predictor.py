@@ -13,6 +13,9 @@ def risk_calc(row):
     t_total = row['medical'] + row['food'] + row['gathering']+ row['transport'] + row['notable']
     return base_risk**t_total
 
+def irl_risk(model):
+    data = pd.read_csv("data/confirmed_cases.csv") 
+
 def main(data_file):
     data = pd.read_csv(data_file) 
     data['risk'] = data.apply(lambda row: risk_calc(row),axis=1)
