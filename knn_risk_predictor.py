@@ -1,10 +1,11 @@
 import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsRegressor
+from scipy import stats
 import sys
 
-neigh = KNeighborsRegressor(n_neighbors=6, weights='distance')
-wider_neigh = KNeighborsRegressor(n_neighbors=50, weights='distance')
+neigh = KNeighborsRegressor(n_neighbors=10, weights='distance')
+wider_neigh = KNeighborsRegressor(n_neighbors=3, weights='distance')
 
 def risk_calc(row):
     base_risk = row['medical'] + row['food']*0.8 + row['gathering']*0.5 + row['transport']*0.5 + row['notable']*0.2
@@ -18,6 +19,7 @@ def irl_risk(model):
     irl_cases = pd.read_csv("data/confirmed_cases.csv") 
     irl_cases['risk'] = model.predict(irl_cases)
     irl_cases.to_csv("out/irl_risk.csv",index=False)
+    return irl_cases['risk']
 
 def main(data_file):
     data = pd.read_csv(data_file,index_col=0) 
@@ -25,7 +27,7 @@ def main(data_file):
     data['risk'] = data.apply(lambda x: x['risk']/data['risk'].max(), axis=1)
     print (data)
     targets = data[(data['risk']==0) & (data['tag_count']>0)]
-
+    data.to_csv('out/initial_risks.csv',index = False)
     known = data[~data.isin(targets)]
     known = known[known['lat'].notna()]
     print(len(known))
@@ -51,10 +53,13 @@ def main(data_file):
     overall_risks = pd.concat([known_2,new_targets])
     overall_risks.to_csv('out/smart_risks.csv',index = False)
 
-    irl_risk(wider_neigh)
+    irl_risks = irl_risk(wider_neigh)
     print (overall_risks)
     # targets = data[ (data['food']==False) | (data['medical']==False) | (data['gathering']==False) | (data['transport']==False) | (data['notable']==False)  ]
     # targets = targets[targets['tag_count']>0]
+
+    # Validate our smartest model
+    print(stats.ttest_ind(overall_risks['risk'],irl_risks))
     
 if __name__=='__main__':
     data_file = sys.argv[1]

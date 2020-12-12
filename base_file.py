@@ -6,7 +6,7 @@ import sys
 
 
 def main(data_file):
-    data = pd.read_csv(data_file,header=True) 
+    data = pd.read_csv(data_file,header=0) 
     
     # bulk = data.drop(['tags'], axis=1)
     # tags = pd.json_normalize(data['tags'])
