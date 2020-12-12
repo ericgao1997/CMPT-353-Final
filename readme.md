@@ -14,5 +14,8 @@ To run the whole thing locally, start to finish, using the [`amenities-vancouver
 ##Requirements
 * Python 3.5+
 * Spark 2.3+
+* Scipy
+* Sklearn
+* Matplotlib
 
 WIP
