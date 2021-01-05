@@ -3,7 +3,7 @@
 lib/__pycache__
 
 # Expected outouts from pyplots and so on
-*.png
+# *.png
 
 # Output
 out.*
